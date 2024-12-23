@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <title>Dental Products</title>
+</head>
+<style>
+    /* General Reset */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f8f9fa;
+        color: #333;
+    }
+
+    /* Header Styling */
+    header {
+        background-color: #5C6BC0; /* Soft blue theme */
+        color: white;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .header-links {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .header-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .header-links img {
+        vertical-align: middle;
+    }
+
+    /* Main Section */
+    main {
+        padding: 20px;
+        max-width: 1200px; /* Fixed container size */
+        margin: auto;
+    }
+
+    main h2 {
+        color: #5C6BC0;
+        font-size: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    /* Search Bar */
+    form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    form input[type="text"] {
+        padding: 10px;
+        font-size: 14px;
+        width: 60%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+    form button {
+        padding: 10px 20px;
+        font-size: 14px;
+        background-color: #5C6BC0;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    form button:hover {
+        background-color: #357ab7;
+    }
+
+    /* Product List */
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .product {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        text-align: center;
+        padding: 15px;
+        transition: box-shadow 0.3s;
+    }
+
+    .product:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .product img {
+        width: 100%; /* Fixed width */
+        max-width: 220px; /* Maximum size for consistency */
+        height: 150px; /* Fixed height */
+        object-fit: contain; /* Ensures image fits neatly */
+        border-radius: 10px;
+        margin: 0 auto;
+    }
+
+    .product h3 {
+        font-size: 16px;
+        color: #333;
+        margin: 10px 0;
+    }
+
+    .product p {
+        font-size: 14px;
+        color: #5C6BC0;
+        font-weight: bold;
+        margin: 5px 0;
+    }
+
+    .product a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 15px;
+        background-color: #5C6BC0;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .product a:hover {
+        background-color: #357ab7;
+    }
+
+    /* Footer (Optional if added later) */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #5C6BC0;
+        color: white;
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .header-links {
+            position: static;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        form input[type="text"] {
+            width: 80%;
+        }
+    }
+    .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.head h1 {
+    flex-grow: 1; 
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: white; 
+    margin: 0; 
+}
+</style>
+
+<body>
+    <header>
+        <div class="head">
+            <a href="home.html" class="back-to-products">
+                <img width=40px height="25px" src="static/arrow.png">
+            </a>
+        </div>
+        <h1>Essential Dental Products</h1>
+        <div class="header-links">
+            <a href="/myorders">My Orders</a>
+            <!-- Cart icon -->
+            <a href="{{ url_for('cart') }}">
+                <img src="static/cart.jpeg" alt="Cart" style="width:30px; height:30px;">
+            </a>
+            <!-- Logout link -->
+            <a href="/logout">Logout</a>
+        </div>
+    </header>
+    
+    <main>
+        <!-- Search Bar -->
+        <form method="GET" action="{{ url_for('product_list') }}">
+            <input type="text" name="search" placeholder="Search products..." value="{{ search_query }}">
+            <button type="submit">Search</button>
+        </form>
+
+        <h2>Shop Our Products</h2>
+        <div class="product-list">
+            {% for product in products %}
+                <div class="product">
+                    
+                        <img src="{{ product[4] }}" alt="{{ product[1] }}">
+                    
+                    <h3>{{ product[1] }}</h3>
+                    <p>{{product[2]}}</p>
+                    <p>&#8377;{{ product[3] }}</p>
+                    <a href="{{ url_for('add_to_cart', product_id=product[0]) }}">Add to Cart</a>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

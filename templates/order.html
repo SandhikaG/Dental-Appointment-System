@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+ 
+</head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f6fa; /* Light, neutral background */
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar styling */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #3949AB; /* Dark blue for sidebar */
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 20px;
+}
+
+.sidebar ul li a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s, padding-left 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #5C6BC0; /* Lighter blue for hover */
+    padding-left: 30px; /* Slide effect for hover */
+}
+
+/* Content area styling */
+.content {
+    margin-left: 250px; /* Align with sidebar width */
+    padding: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #5C6BC0; /* Matching header color */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Appointments table styling */
+.appointments {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+th {
+    background-color: #5C6BC0; /* Table header color */
+    color: #fff;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #e8f0fe; /* Light hover effect */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternating row colors */
+}
+
+
+</style><body>
+  <div class="sidebar">
+    <h2>Doctor Dashboard</h2>
+    <ul>
+      <li><a href="drdash.html">Appointments</a></li>
+      <li><a href="patients.html">Patients</a></li>
+      <li><a href="videoconsult.html">Video Consultations</a></li>
+      <li><a href="/ordersdisplay">Orders</a></li>
+      <li><a href="launch.html">Add Product</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <h2>Orders</h2>
+    <div class="appointments">
+      <table>
+        <table >
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Phone</th>
+                    <th>Product ID</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr id="order_{{ order[0] }}">
+                    <td class="order_id">{{ order[0] }}</td>
+                    <td>{{ order[1] }}</td>
+                    <td>{{ order[2] }}</td>
+                    <td class="status">{{ order[3] }}</td>
+                    <td><input type="button" class="shipped-button" value="SHIPPED" onclick="ajaxGetCallShipped({{ order[0] }})"></td>
+                    <td><input type="button" class="delivered-button" value="DELIVERED" onclick="ajaxGetCallDelivered({{ order[0] }})"></td>
+                </tr>
+                
+                
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        
+    </div>
+  </div>
+<script>
+  function ajaxGetCallShipped(order_id) {
+    const url = `/shipped?order_id=${order_id}`;
+    const req = new XMLHttpRequest();
+    req.open('GET', url, true);
+    // Send the request
+    req.send();
+    // Attach the event listener for the response
+    req.addEventListener('load', function() {
+        if (this.status === 200 && this.responseText !== '') {
+            // Find the row containing the updated order (based on order ID)
+            const row = document.querySelector(`#order_${order_id}`);
+            const button1 = row.querySelector('.shipped-button');
+            button1.style.color = 'red';  
+            button1.disabled = true; // Disable the "SHIPPED" button
+            button1.innerText = 'Shipped'; 
+            row.querySelector('.status').innerText = 'Shipped';
+        } else {
+            alert("Facing some error, please try again.");
+        }
+    });
+}
+function ajaxGetCallDelivered(order_id) {
+    // Construct the URL for the GET request
+    const url = `/delivered?order_id=${order_id}`;
+
+    // Create a new XMLHttpRequest object
+    const req = new XMLHttpRequest();
+
+    // Configure the GET request
+    req.open('GET', url, true);
+
+    // Send the request
+    req.send();
+
+    // Attach the event listener for the response
+    req.addEventListener('load', function() {
+        if (this.status === 200 && this.responseText !== '') {
+            // Find the row containing the updated order (based on order ID)
+            const row = document.querySelector(`#order_${order_id}`);
+            
+            // Disable the "DELIVERED" button
+            const button2 = row.querySelector('.delivered-button');
+            button2.style.color = 'green';  // Optional: change button text color to green
+            button2.disabled = true; // Disable the "DELIVERED" button
+            button2.innerText = 'Delivered'; // Change text to "Delivered"
+            
+            // Update the status text in the row to "Delivered"
+            row.querySelector('.status').innerText = 'Delivered';
+        } else {
+            alert("Facing some error, please try again.");
+        }
+    });
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Toothsy</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  
+  <style>
+    #hero {
+      background-image: url("{{ url_for('static', filename='clinic.jpg') }}");
+      background-size: cover; /* Ensure the image covers the section */
+      background-position: center; /* Center the image */
+      height: 80vh; /* Reduced height for the hero section */
+      color: #fff; /* White text for contrast */
+      display: flex; /* Center content vertically and horizontally */
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+  }
+
+  #hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4); /* Slightly lighter overlay for better text visibility */
+      z-index: 1;
+  }
+
+  #hero h1 {
+      font-size: 3.5rem;
+      color: black;
+      font-weight: bold;
+      z-index: 2; /* Ensure text is above the overlay */
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Add text shadow to highlight */
+  }
+
+  #hero h2 {
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: black;
+      z-index: 2;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Add shadow for better text visibility */
+  }
+
+  #hero .btn {
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      z-index: 2;
+  }
+
+  #hero .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #fff;
+  }
+
+  #hero .btn-primary:hover {
+      background-color: #0056b3;
+      transform: scale(1.1);
+  }
+
+  #hero .btn-success {
+      background-color: #28a745;
+      border-color: #28a745;
+      color: #fff;
+  }
+
+  #hero .btn-success:hover {
+      background-color: #1e7e34;
+      transform: scale(1.1);
+  }
+ 
+  #hero .btn-timeslot {
+      background-color: #bd0db1;
+      border-color: #bd0db1;
+      color: #fff;
+  }
+  #hero .btn-timeslot:hover {
+      background-color: #ad2878;
+      transform: scale(1.1);
+  }
+  #hero .btn-products {
+      background-color: #e05c0a;
+      border-color: #e05c0a;
+      color: #fff;
+  }
+  #hero .btn-products:hover {
+      background-color: #b95c23;
+      transform: scale(1.1);
+  }
+  #hero .d-flex {
+    gap: 15px; /* Adds uniform space between buttons */
+}
+  
+    #doctors {
+        padding: 50px 0;
+        background-color: #f9f9f9; 
+    }
+
+    #doctors h2 {
+        text-align: center;
+        color: #5C6BC0;
+        font-weight: bold;
+        margin-bottom: 40px;
+    }
+
+    .doctor-row {
+        display: flex;
+        justify-content: center; /* Center the doctors horizontally */
+        gap: 40px; /* Space between the two cards */
+    }
+
+    .doctor {
+        flex: 1 1 calc(45%); /* Larger cards for only two doctors */
+        max-width: calc(45%);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        border-radius: 12px; /* Rounded corners */
+        overflow: hidden;
+        background-color: #fff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .doctor:hover {
+        transform: scale(1.05); /* Subtle zoom on hover */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .doctor img {
+        width: 100%;
+        height: 300px; /* Fixed height for larger, consistent images */
+        object-fit: cover; /* Ensure images are cropped nicely */
+        border-bottom: 3px solid #5C6BC0;
+    }
+
+    .doctor h3 {
+        font-size: 1.5rem;
+        color: #333;
+        text-align: center;
+        margin: 15px 0 10px;
+    }
+
+    .doctor p {
+        text-align: center;
+        color: #555;
+        font-size: 1rem;
+        margin: 0 15px 20px;
+    }
+
+    @media (max-width: 768px) {
+        .doctor {
+            flex: 1 1 100%; /* Single card per row on smaller screens */
+            max-width: 100%;
+        }
+
+        .doctor img {
+            height: 250px; /* Adjust image size for smaller screens */
+        }
+    }
+    .navbar-brand d-flex align-items-center{
+        height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 1rem;
+    }
+    .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5C6BC0;
+    padding: 0.5rem 1rem; /* Reduced padding from 1rem 2rem to 0.5rem 1rem */
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+    
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #FFD700;
+        }
+</style>
+
+  <body>
+    
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <img class="logo" src="{{ url_for('static', filename='favicon.png') }}" alt="TOOTHSY Logo">
+            <h1><span style="color: white;font-family: Arial;"><b>TOOTHSY</b></h1>
+        </div>
+        <nav class="navbar">
+            
+            <a href="#doctors">Doctors</a>
+            <a href="/logout">Log Out</a>
+        </nav>
+    </header>
+   
+    <!-- Hero Section -->
+    <section id="hero" class="d-flex align-items-center">
+      <div class="container text-center position-relative">
+        <h1>Experience Quality Care, Anytime</h1>
+        <h2>Your smile, our priority.</h2>
+        <div class="d-flex justify-content-center mt-4">
+          <a href="consultation.html" class="btn btn-primary mx-2">Book an Appointment</a>
+          <a href="/video_consultation" class="btn btn-success mx-2">Video Consultation</a>
+          <a href="timeslot.html" class="btn btn-timeslot">Check Timeslot</a>
+          <a href="/products" class="btn btn-products">Shop Dental Essentials</a>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- doctors section -->
+    <section id="doctors">
+      <div class="container">
+          <h2>Our Doctors</h2>
+          <div class="doctor-row">
+              <div class="doctor">
+                  <img src="{{ url_for('static', filename='doctor1.jpg') }}" alt="doctor1">
+                  <h3>Dr. David Lee</h3>
+                  <p>Periodontist<br>Specialist in gum health, dental implants, and periodontal surgery.<br>Experience: 9 years</p>
+              </div>
+              <div class="doctor">
+                  <img src="{{ url_for('static', filename='doctor2.jpg') }}" alt="doctor2">
+                  <h3>Dr. Jennifer Garcia</h3>
+                  <p>Orthodontist<br>
+                     Expert in braces, Invisalign, and correcting dental misalignments.<br>Experience: 7 years</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+    
+    
+  </body>
+</html>

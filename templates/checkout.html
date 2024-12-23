@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+</head>
+<style>
+    /* General Reset */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+
+}
+
+/* Header Styling */
+header {
+    text-align: center;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 5px;
+    padding: 1rem 2rem;
+    background-color: #5C6BC0;
+}
+
+header h1 {
+    font-size: 28px;
+    color:white; /* Soft blue for the title */
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Main Content Styling */
+main {
+    max-width: 600px;
+    margin: -65px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+form h1{
+    text-align: center;
+    font-weight: bold;
+    color: #5C6BC0;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label Styling */
+form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input Styling */
+form input[type="text"],
+form input[type="email"],
+form textarea {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    display: block;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+form textarea {
+    resize: none;
+    height: 100px;
+}
+
+/* Strong Note Styling */
+form p {
+    font-size: 14px;
+    color: black;
+    font-weight: bold;
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-left: 4px solid #4a90e2;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* Button Styling */
+form button {
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #5C6BC0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #357ab7;
+}
+
+/* Validation Message Styling */
+.alert {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    form button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+.back-to-products {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    color: white;
+   
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.back-to-products:hover {
+    background-color: #357ab7;
+}
+.head {
+    display: flex;
+    align-items: center; /* Vertically center the arrow and the heading */
+    justify-content: space-between;
+     /* Place the items at the edges */
+    margin-bottom: 20px;
+}
+
+.head h1 {
+    flex-grow: 1; /* This allows the heading to occupy the remaining space */
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: white; /* Same color as other headings */
+    margin: 0; /* Removes any default margin */
+}
+
+
+</style>
+<body>
+    <div class="head">
+        <a href="/cart" class="back-to-products">
+            <img width=40px height="25px" src="static/arrow.png">
+        </a>
+    </div>
+    <main>
+        
+        <form action="{{ url_for('process_order') }}" method="post" onsubmit="return validateForm()">
+            <h1>Check Out</h1>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" required></textarea>
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" minlength="10" maxlength="10" required>
+
+           
+
+            <p><strong>Note:</strong> Only COD (Cash on Delivery) is available. No returns allowed.</p>
+
+            <button type="submit">Confirm</button>
+        </form>
+    </main>
+    <script>
+        function validateForm() {
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+
+            // Phone validation
+            const phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(phone)) {
+                alert('Please enter a valid 10-digit phone number.');
+                return false;
+            }
+
+            // Email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

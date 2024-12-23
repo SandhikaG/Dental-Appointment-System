@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Login </title>
+    <link rel="icon" type="image/x-icon" href="static/favicon.png">
+    <link rel="stylesheet" href="static/css/login.css"> 
+
+
+    <script>
+        {% if msg %}
+            window.alert("{{ msg }}");
+        {% endif %}
+    </script>
+    
+</head> 
+    
+<body>
+    <div class="login-form">
+        <h1><b>Doctor Login</b></h1>
+        <div class="container">
+            <div class="main">
+                <div class="content">
+                    <h2>Login</h2>
+                    <form action="{{ url_for('logindr') }}" method="post">
+                        <input type="text" name="Email" placeholder="Email" required autofocus="">
+                        <input type="password" name="Password" placeholder="User Password" required autofocus="">
+                         <button class="btn" type="submit" href="/drdash.html">
+                            Login
+                         </button>
+                        </form>
+                    <p class="account">Don't Have An Account? <a href="/singup.html">Signup</a></p>
+                    <p class="account"><a href="/forget_password">Forget password?</a></p>    
+                </div>
+                <div class="form-img">
+                    <img src="{{ url_for('static', filename='bg.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

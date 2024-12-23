@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <title>Appointment success</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <style>
+        body {
+            background-color: #f4f4f9; /* Light background color for the page */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background-color: #5C6BC0; /* Color similar to previous design */
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4e5fa2; /* Darker shade on hover */
+            transform: scale(1.05);
+        }
+
+        .message {
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+
+        .message a {
+            color: #5C6BC0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .message a:hover {
+            text-decoration: underline;
+        }
+
+        .line {
+            width: 50%;
+            border-top: 2px solid #5C6BC0;
+            margin: 30px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ message }}</h1>
+    <a href="/home.html"><button>HOME</button></a>
+    
+    <div class="line"></div>
+    
+    <div class="message">
+        <p>For further details, please check your email for confirmation or updates.</p>
+    </div>
+</body>
+</html>

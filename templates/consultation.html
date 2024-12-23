@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>  
+<html>  
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title>Consultation</title>
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+<style>
+  body {
+      font-family: 'Calibri', Helvetica, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+  }
+  label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #555;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    #problem {
+        font-size: 1rem;
+        font-weight: bold;
+        border: 2px solid #5C6BC0;
+        border-radius: 4px;
+        background-color: #e8f0fe;
+        padding: 12px;
+        margin-top: 5px;
+        transition: border-color 0.3s, background-color 0.3s;
+    }
+
+    #problem:focus {
+        border-color: #3949ab;
+        background-color: #dce6ff;
+        outline: none;
+    }
+
+    label[for="problem"] {
+        color: black;
+        margin-bottom: 10px;
+    }
+
+  .container {
+      padding: 40px;
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .container h1 {
+      color: #5C6BC0;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 20px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="date"],
+  input[type="time"],
+  select,
+  textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 16px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      font-size: 1rem;
+      transition: background-color 0.3s, border-color 0.3s;
+  }
+
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  input[type="date"]:focus,
+  input[type="time"]:focus,
+  select:focus,
+  textarea:focus {
+      background-color: #e8f0fe;
+      border-color: #5C6BC0;
+      outline: none;
+  }
+
+  .registerbtn {
+      background-color: #5C6BC0;
+      color: white;
+      padding: 14px 20px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
+      transition: background-color 0.3s, transform 0.2s;
+  }
+
+  .registerbtn:hover {
+      background-color: #3949ab;
+      transform: scale(1.02);
+  }
+
+  label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #555;
+      display: block;
+      margin-bottom: 5px;
+  }
+
+  hr {
+      border: 1px solid #eee;
+      margin: 20px 0;
+  }
+
+  .alert-text {
+      color: #f44336;
+      font-size: 0.9rem;
+      margin-top: -8px;
+      margin-bottom: 16px;
+      display: none;
+  }
+</style>
+</head>  
+<body>  
+  <form method="post" action="consultation.html" >  
+    <div class="container">  
+    <center>  <h1> Consultation</h1> </center>  
+    <hr>  
+    
+  <input type="text" name="Name" placeholder= "Name" size="10" required />        
+  <input type="text" name="Age" placeholder= "Age" size="10" required />  
+  <input type="text" name="Address" placeholder= "Address" size="15" required/>
+  <input type="text" name="Phone" placeholder= "Phone Number" minlength=10 maxlength=10 size="10" required />
+  <center>  <h1> Please Select Date and Available Time Slot</h1> </center>  
+  <hr>  
+  
+  <input type="date" name="date" id="date" placeholder= "dd-mm-yyyy" size="50" required />        
+  Select time slot:( Morning )     
+  <input type="time" name="time" placeholder="Select time slot" size="50"  
+          step="900" min="09:00" max="13:00"/>
+  Select time slot:   ( Evening ) 
+   <input type="time" name="time" placeholder="Select time slot" size="50"  
+                   step="900" min="19:00" max="22:00"/> 
+  
+  <label for="problem">Type of Dental Problem:</label>
+      <select name="problem" id="problem" required>
+        <option value="" disabled selected>Choose a dental problem</option>
+        <option value="Cavity">Cavity</option>
+        <option value="Toothache">Toothache</option>
+        <option value="Gum Disease">Gum Disease</option>
+        <option value="Tooth Sensitivity">Tooth Sensitivity</option>
+        <option value="Bad Breath">Bad Breath</option>
+        <option value="Broken Tooth">Broken Tooth</option>
+        <option value="Whitening">Whitening</option>
+        <option value="Other">Other</option>
+      </select>
+  
+      
+  
+   
+  
+      <button type="submit" onclick="alert('confirm?')" size="2" class="registerbtn">
+        <b>Next</b></button> 
+      
+      
+  </form>  
+  </body>  
+  <script>
+         
+    // Get today's date
+    const today = new Date();
+    
+    // Calculate tomorrow's date
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    
+    // Format the date to YYYY-MM-DD for the `min` attribute
+    const formattedTomorrow = tomorrow.toISOString().split('T')[0];
+    
+    // Set the `min` attribute to tomorrow's date
+    document.getElementById('date').setAttribute('min', formattedTomorrow);
+  
+    // Handle the input event for the date field
+    var dateInput = document.getElementById('date');
+    
+    dateInput.addEventListener('input', function() {
+      var selectedDate = new Date(this.value);
+      
+      // Check if the selected date is a Sunday (getDay() returns 0 for Sunday)
+      if (selectedDate.getDay() === 0) {  // 0 represents Sunday
+        this.value = '';  // Clear the selected value
+        alert('Sunday is a holiday. Please select another date.');
+      }
+    });
+
+  </script>
+  
+  </html>

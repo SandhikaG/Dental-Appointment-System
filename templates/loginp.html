@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Login </title>
+    <link rel="icon" type="image/x-icon" href="static/favicon.png">
+    <link rel="stylesheet" href="static/css/login.css">
+
+    <script>
+        {% if msg %}
+            window.alert("{{ msg }}");
+        {% endif %}
+    </script>
+    </head>
+<body>
+    <div class="login-form">
+        <h1>Patient Login</h1>
+        <div class="container">
+            <div class="main">
+                <div class="content">
+                    
+                    <h2>Login</h2>
+                    <form action="loginp.html" method="post">
+                        <input type="text" name="email" placeholder="Email" required autofocus="">
+                        <input type="password" name="password" placeholder="User Password" required autofocus="">
+                         <button class="btn" type="submit" href="home.html">
+                            Login
+                         </button>
+
+                        </form>
+                    <p class="account">Don't Have An Account? <a href="/singuppt.html">Signup</a></p>
+                    <p class="account"><a href="/forget_password_p">Forget password?</a></p>
+                     
+                </div>
+                <div class="form-img">
+                    <img src="static/bg.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

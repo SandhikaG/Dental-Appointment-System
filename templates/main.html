@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOOTHSY</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <style>
+        /* General Reset */
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px #5C6BC0;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #5C6BC0;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        strong {
+            color: #5C6BC0;
+            font-weight: bold;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #5C6BC0;
+            padding: 1rem 2rem;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            
+            margin-right: 1rem;
+        }
+        .logo-container h1 {
+        margin: 0;
+        color: white;
+        font-family: Arial, sans-serif;
+        font-size: 1.5rem; /* Adjust font size as needed */
+    }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #FFD700;
+        }
+
+        /* Contact Us Section Styling */
+        .contact-form {
+            margin-top: 30px;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            text-align: center;
+            color: black;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+        }
+
+        .home-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #5C6BC0;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            width: fit-content;
+        }
+
+        .home-button:hover {
+            background-color: #003366;
+        }
+
+        /* Location Section Styling */
+        .map {
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            margin-bottom: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .address {
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .address h2 {
+            color: #5C6BC0;
+            margin-bottom: 5px;
+        }
+
+        .address p {
+            margin: 5px 0;
+            color:black;
+        }
+
+
+        /* Swipe Image Section */
+        .swipe-container {
+            width: 90%;
+            max-width: 1500px;
+            height: 590px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            margin: 20px auto;
+        }
+
+        .swipe-images {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transform: translateX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-wrapper {
+            position: relative;
+            flex: 0 0 100%;
+            height: 100%;
+        }
+        .image-wrapper:nth-child(2) img,
+        .image-wrapper:nth-child(3) img {
+            opacity: 0.8;
+        }
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            /* object-fit: cover; */
+        }
+
+        /* Buttons on top of images */
+        .overlay-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e40505;
+    color: white;
+    border: 2px solid #e40505; /* Define the initial border */
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease; /* Ensure transition applies to border */
+    z-index: 5;
+}
+
+.overlay-button:hover {
+    background-color: transparent; /* Remove background color */
+    color: white; /* Change text color to red */
+    border: 2px solid red; /* Change border color on hover */
+}
+
+        .swipe-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+
+        .swipe-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .swipe-button.left {
+            left: 20px;
+        }
+
+        .swipe-button.right {
+            right: 20px;
+        }
+  
+    
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo-container">
+            <img class="logo" src="{{ url_for('static', filename='favicon.png') }}" alt="TOOTHSY Logo">
+            <h1>TOOTHSY</h1>
+        </div>
+        <nav class="navbar">
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact Us</a>
+            <a href="login.html">Doctor</a>
+            <a href="loginp.html">Patient</a>
+        </nav>
+    </header>
+
+    <!-- Swipe Image Section -->
+    <div class="swipe-container">
+        <button class="swipe-button left" onclick="swipe('left')">&#8678;</button>
+        <div class="swipe-images">
+            <!-- Image 1 -->
+            <div class="image-wrapper">
+                <img src="static/clinic_img.png" alt="TOOTHSY Clinic">
+            </div>
+    
+            <!-- Image 2 -->
+            <div class="image-wrapper">
+                <img src="static/appointment1_img.png" alt="Book Appointment">
+                <button class="overlay-button" onclick="window.location.href='loginp.html'">Book Appointment</button>
+            </div>
+    
+            <!-- Image 3 -->
+            <div class="image-wrapper">
+                <img src="static/shop1_img.png" alt="Shop Dental Essentials">
+                <button class="overlay-button" onclick="window.location.href='loginp.html'">Shop Dental Essentials</button>
+            </div>
+        </div>
+        <button class="swipe-button right" onclick="swipe('right')">&#8680;</button>
+    </div>
+    <!-- About Us Section -->
+    <section id="about" class="container">
+        <h1>About TOOTHSY Clinic</h1>
+        <p>Welcome to <strong>TOOTHSY</strong>, your trusted dental clinic where we focus on providing the best dental care with ease. Our online appointment system allows you to schedule appointments with our experienced dental professionals from the comfort of your own home.</p>
+        <p>At TOOTHSY, we are committed to making dental care more accessible and convenient. Our online appointment system lets you choose your preferred time slot and confirm your appointment, all with just a few clicks. Whether you need a routine check-up, a cleaning, or specialized dental treatment, we are here to help.</p>
+        <p>Our clinic is equipped with state-of-the-art technology and a team of skilled dentists who are dedicated to your oral health. We aim to make every visit a pleasant experience, ensuring you leave with a brighter, healthier smile.</p>
+        <p>Thank you for choosing <strong>TOOTHSY</strong>. We look forward to serving you and your family’s dental needs. Book your next appointment today!</p>
+    </section>
+
+    
+        <!-- Contact Us Section -->
+        <section id="contact" class="container">
+            <h1>Visit Us</h1>
+            <div class="contact-info">
+         
+            <div class="map">
+                <img src="static/loc.png" alt="Location Map">
+            </div>
+            <div class="address">
+                <h2> Contact Us</h2>
+                <p><i class="fas fa-map-marker-alt"></i> 29/13, Toothsy, near Christ University, Bangalore</p>
+                <p><i class="fas fa-phone"></i> +1234567890</p>
+                <p><i class="fas fa-envelope"></i> toothsy@gmail.com</p>
+            </div>
+        </section>
+  
+    
+    <a href="/" class="home-button">Back to Home</a>
+    <script>
+        let currentPosition = 0;
+        const swipeImages = document.querySelector('.swipe-images');
+        const containerWidth = document.querySelector('.swipe-container').offsetWidth;
+        const totalImages = swipeImages.children.length;
+
+        function swipe(direction) {
+            const maxPosition = -(totalImages - 1) * containerWidth;
+
+            if (direction === 'left' && currentPosition < 0) {
+                currentPosition += containerWidth;
+            } else if (direction === 'right' && currentPosition > maxPosition) {
+                currentPosition -= containerWidth;
+            }
+
+            swipeImages.style.transform = `translateX(${currentPosition}px)`;
+        }
+
+        // Automatic swiping
+        setInterval(() => {
+            const maxPosition = -(totalImages - 1) * containerWidth;
+            if (currentPosition > maxPosition) {
+                currentPosition -= containerWidth;
+            } else {
+                currentPosition = 0; // Reset to first image
+            }
+            swipeImages.style.transform = `translateX(${currentPosition}px)`;
+        }, 2000);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <title>Appointment Table</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa; /* Light, neutral background */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin-left: 270px; /* Adjusted to account for the sidebar */
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h3 {
+            font-size: 24px;
+            color: #5C6BC0;
+            margin-bottom: 20px;
+        }
+
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color:#3949AB; /* Darker shade of blue */
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            color: #fff;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            padding: 10px 20px;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Page header */
+        h1 {
+            text-align: center;
+            color: #5C6BC0; /* Deep blue for title */
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            color: black; /* Black for section titles */
+            font-size: 1.8rem;
+            margin-top: 20px;
+            text-align: left;
+            border-left: 4px solid #3949AB; /* Blue accent bar */
+            padding-left: 10px;
+        }
+
+        /* Table container */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        /* Table header styling */
+        th {
+            background-color: #5C6BC0; /* Deep blue header */
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        /* Table data styling */
+        td {
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 1rem;
+            color: #333; /* Dark gray for readability */
+            border: 1px solid #ddd; /* Added border for consistent appearance */
+        }
+
+        /* Alternating row colors */
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Light gray for alternate rows */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>APPOINTMENT</h2>
+        <ul>
+            <li><a href="timeslot.html">Offline Consultation</a></li>
+            <li><a href="vtimeslot.html">Video Consultation</a></li>
+            <li><a href="home.html">Home</a></li>
+  
+        </ul>
+    </div>
+
+    <div class="container">
+        <h1>Video Appointment </h1>
+        <div>
+            <h3> Timings</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time Slot</th>
+                        <th>Token Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>10:00 AM</td><td>1</td></tr>
+                    <tr><td>10:30 AM</td><td>2</td></tr>
+                    <tr><td>11:00 AM</td><td>3</td></tr>
+                    <tr><td>11:30 AM</td><td>4</td></tr>
+                    <tr><td>12:00 PM</td><td>5</td></tr>
+                    <tr><td>12:30 PM</td><td>6</td></tr>
+                    <tr><td>1:00 PM</td><td>7</td></tr>
+                    <tr><td>1:30 PM</td><td>8</td></tr>
+                    <tr><td>2:00 PM</td><td>9</td></tr>
+                    <tr><td>2:30 PM</td><td>10</td></tr>
+                    <tr><td>3:00 PM</td><td>11</td></tr>
+                    <tr><td>3:30 PM</td><td>12</td></tr>
+                    <tr><td>4:00 PM</td><td>13</td></tr>
+                    <tr><td>4:30 PM</td><td>14</td></tr>
+                    <tr><td>5:00 PM</td><td>15</td></tr>
+                    <tr><td>5:30 pm</td><td>16</td></tr>
+                    <tr><td>6:00 pm</td><td>17</td></tr>
+                    <tr><td>6:30 pm</td><td>18</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

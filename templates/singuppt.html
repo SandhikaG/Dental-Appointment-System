@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Patient Registration </title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+  <script>
+    {% if msg %}
+        window.alert("{{ msg }}");
+    {% endif %}
+
+    function validateForm() {
+      const email = document.forms["signupForm"]["email"].value;
+      const password = document.forms["signupForm"]["password"].value;
+      const confirmPassword = document.forms["signupForm"]["confirm_password"].value;
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+      if (!passwordPattern.test(password)) {
+        alert("Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.");
+        return false;
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Patient Registration</header>
+      <form name="signupForm" action="/singuppt.html" method="post" onsubmit="return validateForm()">
+        <input type="text" name="email" placeholder="Enter your email">
+        <input type="password" name="password" placeholder="Enter your password">
+        <input type="password" name="confirm_password" placeholder="Confirm your password">
+        <input type="submit" class="button" value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <label for="check"><a href="loginp.html">Login</a></label>
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

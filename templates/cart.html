@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <title>Shopping Cart</title>
+</head>
+<style>
+    /* General Reset */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 20px;
+}
+
+/* Heading Styling */
+h1, h2 {
+    color: #5C6BC0; /* Soft blue for headings */
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #5C6BC0;
+    color: white;
+}
+
+thead th {
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+
+tbody td {
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+td img {
+    border-radius: 5px;
+}
+
+/* Action Links */
+td a {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px 10px;
+    color: white;
+    background-color: #4a90e2;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+td a:hover {
+    background-color: #357ab7;
+}
+
+/* Disabled Button Styling */
+a[style*="pointer-events: none"] {
+    cursor: not-allowed;
+}
+
+/* Total Price */
+h2 {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+/* Proceed to Buy Button */
+a[href="/checkout"] {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color:#5C6BC0;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+a[href="/checkout"]:hover {
+    background-color: #357ab7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+
+    td a {
+        padding: 5px;
+        font-size: 10px;
+    }
+
+    a[href="/checkout"] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+.back-to-products {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.back-to-products i {
+    margin-right: 8px;
+}
+
+.back-to-products:hover {
+    background-color: #357ab7;
+}
+.head {
+    display: flex;
+    align-items: center; /* Vertically center the arrow and the heading */
+    justify-content: space-between; /* Place the items at the edges */
+    margin-bottom: 20px;
+}
+
+.head h1 {
+    flex-grow: 1; /* This allows the heading to occupy the remaining space */
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #5C6BC0; /* Same color as other headings */
+    margin: 0; /* Removes any default margin */
+}
+
+
+</style>
+<body>
+    <div class="head">
+    <a href="/products" class="back-to-products">
+        <img width=40px height="25px" src="static/arrow.png">
+    </a>
+    <h1>Your Cart</h1>
+</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Image</th>
+                <th>Quantity</th>
+                <th>     </th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item[1] }}</td> <!-- name -->
+                <td>{{ item[2] }}</td> <!-- description -->
+                <td>${{ item[3] }}</td> <!-- price -->
+                
+                <td>${{ item[3] * item[5] }}</td> <!-- total for this product -->
+                <td><img src="{{ item[4] }}" alt="{{ item[1] }}" width="50"></td> <!-- image_url -->
+                <td>
+                    <a href="{{ url_for('decrement_quantity', cart_id=item[0]) }}">-</a>
+                    {{ item[5] }} <!-- quantity -->
+                    <a href="{{ url_for('increment_quantity', cart_id=item[0]) }}">+</a>
+                    </td>
+                    <td>
+                    <a href="{{ url_for('remove_from_cart', cart_id=item[0]) }}">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Total Price: ${{ total_price }}</h2>
+
+    <!-- Disable the button if cart is empty -->
+    <a href="/checkout" {% if cart_items|length == 0 %}style="pointer-events: none; opacity: 0.5;"{% endif %}>Proceed to Buy</a>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <title>My Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: white; /* Main color */
+        }
+
+        .order-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .order-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .order-card:hover {
+            transform: scale(1.05);
+        }
+
+        .order-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .order-details {
+            padding: 15px;
+        }
+
+        .order-details h2 {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .order-details p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .order-details .status {
+            color: #5C6BC0; /* Main color for status */
+            font-weight: bold;
+        }
+
+        .order-details .price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .order-actions {
+            text-align: center;
+            padding: 10px 15px;
+            background: #f9f9f9;
+        }
+
+        .order-actions button {
+            padding: 10px 20px;
+            border: none;
+            background: #5C6BC0; /* Main color for button */
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .order-actions button:hover {
+            background: #3E50B4; /* Darker shade for hover effect */
+        }
+        /* Header Styling */
+    header {
+        background-color: #5C6BC0; /* Soft blue theme */
+        color: white;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .header-links {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .header-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .header-links img {
+        vertical-align: middle;
+    }
+    .order-card img {
+        width: 100%; /* Fixed width */
+        padding-top: 7px;
+        margin: 10px auto 0 auto;
+        max-width: 220px; /* Maximum size for consistency */
+        height: 150px; /* Fixed height */
+        object-fit: contain; /* Ensures image fits neatly */
+        border-radius: 10px;
+        margin: 0 auto;
+    }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Orders</h1>
+        <div class="header-links">
+            <a href="/products">Shop</a>
+            <!-- Cart icon -->
+            <a href="{{ url_for('cart') }}">
+                <img src="static/cart.jpeg" alt="Cart" style="width:30px; height:30px;">
+            </a>
+            <!-- Logout link -->
+            <a href="/">Logout</a>
+            
+        </div>
+    </header>
+    <div class="order-container">
+        {% if msg %}
+        {{msg}}
+        {% endif%}
+        {% for order in orders %}
+        <div class="order-card">
+            <img src="{{ order[2] }}" alt="Product Image">
+            <div class="order-details">
+                <h2>{{ order[0] }}</h2>
+                <p>{{ order[1] }}</p>
+                <p>Quantity: {{ order[3] }}</p>
+                <p class="status">Status: {{ order[4] }}</p>
+                <p class="price">Price: Rs.{{ order[5] }}</p>
+            </div>
+            
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,185 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*--------------------------------------------------------------
+# Body and Background Styles
+--------------------------------------------------------------*/
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f0ff; /* Light lavender background */
+  color: #333;
+  line-height: 1.6;
+  margin-top: 80px; /* Ensures navbar doesn't overlap content */
+}
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+.nav-back {
+  background-color: #5C6BC0;
+  border-bottom: 2px solid #4E5DA6;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #FFD700;
+}
+
+.nav-link {
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #FFD700;
+}
+
+.navbar-toggler {
+  outline: none !important;
+}
+
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+#hero {
+  width: 100%;
+  height: 80vh;
+  background: url("./images/hero.jpg") center center no-repeat;
+  background-size: cover;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+#hero:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#hero .container {
+  padding-top: 80px;
+  text-align: center;
+  color: white;
+}
+
+#hero h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+#hero h2 {
+  color: #ddd;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Button Styles */
+.btn-primary, .btn-success {
+  background-color: #5C6BC0;
+  color: white;
+  border-radius: 50px;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover, .btn-success:hover {
+  background-color: #FFD700;
+  border-color: #FFD700;
+}
+
+/*--------------------------------------------------------------
+# Features Section
+--------------------------------------------------------------*/
+.features {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 3rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 28%;
+  margin: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+  border-radius: 50%; /* Makes the feature images circular */
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #5C6BC0;
+}
+
+.feature-card p {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+.feature-card .btn {
+  background-color: #5C6BC0;
+  color: white;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.feature-card .btn:hover {
+  background-color: #FFD700;
+}
+
+/*--------------------------------------------------------------
+# Footer Section
+--------------------------------------------------------------*/
+.footer {
+  background-color: #5C6BC0;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 10px;
+}

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='doctor_dashboard.css') }}">-->
+</head> 
+<script>
+  // Change the URL without reloading the page
+  history.pushState({}, '', '/drdash.html');
+</script>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f6fa; /* Light background for contrast */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    font-size: 24px;
+    color: #5C6BC0;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #5C6BC0;
+    color: #fff;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #e8f0fe; /* Subtle hover effect */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #3949AB; /* Darker shade of blue */
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 20px;
+}
+
+.sidebar ul li a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s, padding-left 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #5C6BC0;
+    padding-left: 30px;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.filter-form {
+    margin-bottom: 20px;
+}
+
+.filter-form label {
+    font-size: 16px;
+    color: #5C6BC0;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.filter-form input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.filter-form input[type="date"]:focus {
+    border-color: #5C6BC0;
+}
+
+.filter-form button {
+    background-color: #5C6BC0;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.filter-form button:hover {
+    background-color: #3949AB;
+}
+
+
+</style>
+<body>
+  <div class="sidebar">
+    <h2>Doctor Dashboard</h2>
+    <ul>
+      <li><a href="drdash.html">Appointments</a></li>
+      <li><a href="patients.html">Patients</a></li>
+      <li><a href="/videoconsult.html">Video Consultations</a></li>
+      <li><a href="/ordersdisplay">Orders</a></li>
+      <li><a href="launch.html">Add Product</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <h2>Appointments</h2>
+    <form class="filter-form" method="GET" action="/drdash.html">
+      <label for="date-filter">Filter by Date:</label>
+      <input type="date" id="date-filter" name="filter_date" value="{{ filter_date }}">
+      <button type="submit">Apply Filter</button>
+    </form>
+
+    <div class="appointments">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Time</th>
+          <th>Date</th>
+          <th>Email</th>
+          <th>Problem</th>
+        </tr>
+        {% for appointment in appointments %}
+        <tr>
+          <td>{{ appointment[1] }}</td>
+          <td>{{ appointment[2] }}</td>
+          <td>{{ appointment[3] }}</td>
+          <td>{{ appointment[4] }}</td>
+          <td>{{ appointment[5] }}</td>
+          <td>{{ appointment[6] }}</td>
+          <td>{{ appointment[7] }}</td>
+          <td>{{ appointment[8] }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Change the URL without reloading the page
+    history.pushState({}, '', '/drdash.html');
+  </script>
+</body>
+</html>
+
+</html>

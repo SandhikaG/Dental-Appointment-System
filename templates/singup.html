@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dcctor Registration </title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+  <!---Custom CSS File--->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+ 
+  <script>
+    {% if msg %}
+        window.alert("{{ msg }}");
+    {% endif %}
+
+    function validateDoctorForm() {
+      const email = document.forms["doctorForm"]["Email"].value;
+      const password = document.forms["doctorForm"]["Password"].value;
+      const confirmPassword = document.forms["doctorForm"]["ConfirmPassword"].value;
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+      if (!passwordPattern.test(password)) {
+        alert("Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.");
+        return false;
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Doctor Registration</header>
+      <form name="signupForm" method="POST" action="{{ url_for('signupdr') }}" onsubmit="return validateDoctorForm()">
+        <input type="text" name="Email" placeholder="Enter your email">
+        <input type="password" name="Password" placeholder="Enter your password">
+        <input type="password" name="ConfirmPassword" placeholder="Confirm your password">
+        <input type="submit" class="button" value="Signup">
+      </form>
+
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <a href="login.html">Login</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

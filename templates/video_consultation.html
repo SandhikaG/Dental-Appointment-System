@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Video Consultation</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<style>
+  body {
+    background-color: #f9f9f9; /* Light background for the entire page */
+    font-family: Arial, sans-serif;
+  }
+
+  .container {
+    
+    max-width: 800px;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #5C6BC0;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for text */
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .form-control {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 100%;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #5C6BC0;
+    outline: none;
+    box-shadow: 0 0 5px rgba(92, 107, 192, 0.5); /* Highlighted border on focus */
+  }
+
+  .btn-primary {
+    background-color: #5C6BC0;
+    border-color: #5C6BC0;
+    color: #fff;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #4e5fa2;
+    transform: scale(1.05);
+  }
+
+  .btn-secondary {
+    background-color: black;
+    border-color: #6c757d;
+    color: #fff;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 15px;
+  }
+
+  .btn-secondary:hover {
+    background-color: #2a2e31;
+    transform: scale(1.05);
+  }
+
+  .text-center a {
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .btn-primary, .btn-secondary {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center">Book an Appointment</h1>
+    <form method="POST" action="/book_appointment" class="mt-4" onsubmit="return validateDoctorForm()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label for="date">Appointment Date</label>
+        <input type="date" class="form-control" id="date" name="date" required>
+      </div>
+      <div class="form-group">
+        <label for="time">Appointment Time</label>
+        <input type="time" class="form-control" id="time" name="time" size="50"  
+        step="1800" min="10:00" max="19:00" required>
+      </div>
+      <div class="form-group">
+        <label for="upi_id">UPI ID</label>
+        <input type="text" class="form-control" id="upi_id" name="upi_id" placeholder="Enter UPI ID for payment" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div class="text-center mt-4">
+      <a href="home.html" class="btn btn-secondary">Back to Home</a>
+    </div>
+  </div>
+</body>
+<script>
+
+         
+  // Get today's date
+  const today = new Date();
+  
+  // Calculate tomorrow's date
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+  
+  // Format the date to YYYY-MM-DD for the `min` attribute
+  const formattedTomorrow = tomorrow.toISOString().split('T')[0];
+  
+  // Set the `min` attribute to tomorrow's date
+  document.getElementById('date').setAttribute('min', formattedTomorrow);
+
+  // Handle the input event for the date field
+  var dateInput = document.getElementById('date');
+  
+  dateInput.addEventListener('input', function() {
+    var selectedDate = new Date(this.value);
+    
+    // Check if the selected date is a Sunday (getDay() returns 0 for Sunday)
+    if (selectedDate.getDay() === 0) {  // 0 represents Sunday
+      this.value = '';  // Clear the selected value
+      alert('Sunday is a holiday. Please select another date.');
+    }
+  });
+
+
+
+  function validateDoctorForm() {
+      const email = document.forms["doctorForm"]["email"].value;
+      
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</script>
+</html>

@@ -1,0 +1,215 @@
+/* General Styling for the Page */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 30px;
+}
+
+/* Container Styling */
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px #5C6BC0;
+    border-radius: 8px;
+    text-align: left;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #5C6BC0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+strong {
+    color: #5C6BC0;
+    font-weight: bold;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5C6BC0;
+    padding: 1rem 2rem;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+/* Navbar styles */
+.navbar {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #FFD700;
+}
+
+/* Contact Us and Location Section Layout */
+.container-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px; /* Spacing between Contact Us and Location */
+    align-items: flex-start;
+    padding: 20px; /* Padding around the sections */
+    margin: 0 auto; /* Center the row */
+    max-width: 1200px; /* Maximum width for the layout */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact Us Section Styling */
+.contact-form {
+    flex: 0.5; /* Reduce width to 50% of the row */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: bold;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #5C6BC0;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover {
+    background-color: #003366;
+}
+
+/* Location Section Styling */
+#location {
+    flex: 0.5; /* Adjust width to match Contact Us section */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.map {
+    width: 100%;
+    height: 300px; /* Set a fixed height for the map */
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.map iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.address {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.address h2 {
+    color: #5C6BC0;
+    margin-bottom: 10px;
+}
+
+.address p {
+    margin: 5px 0;
+    color: #555;
+}
+
+/* Success Message Styling */
+.success-message {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Back to Home Button Styling */
+.home-button {
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+    padding: 10px;
+    background-color: #5C6BC0;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.home-button:hover {
+    background-color: #003366;
+}
