@@ -1,0 +1,6 @@
+MySQLdb
+email
+flask
+mysql
+smtplib
+werkzeug
